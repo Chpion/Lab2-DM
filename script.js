@@ -16,6 +16,50 @@ function Matrix() {
 	} 
 	document.getElementById('matrix').innerHTML = tab; 
 }
+function valid() {
+	var n = document.getElementById("n").value;
+	var arr1 = document.getElementsByName("value");
+	var s = 0;
+	var arr = []; 
+	for (var i = 0; i < n; i++){
+        arr[i] = [];
+        for (var j = 0; j < n; j++){
+			arr[i][j] = arr1[s].value;  //запись элементов коллекции в массив
+			s++; 
+		}	
+    }
+		for (var i = 0; i < n; i++){   
+			for (var j = 0; j < n; j++){
+                if(arr[i][j] > 1 || arr[i][j] < 0 ){  // условие для элементов меньше 0 и больше 1
+                    return alert("ДОПУСТИМЫЕ ЗНАЧЕНИЯ ТОЛЬКО 0 и 1. ИСПРАВЬТЕ!!!");
+                }
+		}	 
+    }
+    return true;
+}
+
+function graph() {
+    var n = document.getElementById("n").value;
+	var arr1 = document.getElementsByName("value");
+	var s = 0;
+	var arr = [];
+	for (var i = 0; i < n; i++){
+	    arr[i] = [];
+	    for (var j = 0; j < n; j++){
+			arr[i][j] = arr1[s].value;
+			s++;
+	    }	
+	}
+	for (var i = 0; i < n; i++){
+	    for (var j = 0; j < n; j++){
+	        if(arr[i][j] != arr[j][i]) { //условие для неориентированного графа(не может быть асимметричным)
+				return alert("ГРАФ НЕ ЯВЛЯЕТСЯ НЕОРИЕНТИРОВАННЫМ");
+		    }
+	    }	
+	}
+    return true;        
+}   
 
 function resh() {
+	valid();
 }
