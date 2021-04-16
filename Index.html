@@ -9,16 +9,15 @@
 	</head>
   
     <body>           
-        <div>
-            <p>Введите размер матрицы n x n:<br></p>
-                <input type="number" id="n"><br><br>
-                <div><input type="button" value="Создать матрицу" onclick="CreateMatrix();"><br></div>
-                <input type="button" value="Рассчитать" onclick="result();"><br>
-        </div>		
+        Введите n(размер матрицы):<br>
+		<input type="number" id="n" placeholder="Введите n"> 
+		<input type="button" value="Создать" onClick="CreateMatrix();">
 		<div id="matrix"></div>
+		<br>
+		<input type="button" value="Свойства данной матрицы" onClick="result();"> 
 		<div id="reflex"></div>
-		<div id="antireflex"></div>
 		<div id="symm"></div>
+		<div id="cososymm"></div>
 		<div id="trans"></div> 		         
     </body>      
 </html>
