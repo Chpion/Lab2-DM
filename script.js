@@ -1,55 +1,43 @@
-function CreateMatrix() {
-	var n = document.getElementById("n").value;
-	if (n < 0) {
-		alert("n должно быть положительным!");
-	}
-    var tab = '<table>';
-    for (var i = 0; i < n; i++) {
-		tab += '<tr>';
-		for(var j = 0; j < n; j++) {
-			tab += '<td> <input type="number" class="value" min="0" max="1"></td>';
-		}
-		tab += '</tr>';       
-    }
-    tab += '</table>';
-	document.getElementById('matrix').innerHTML = tab; 
+function matrix() {
+	let matrix = document.getElementById("input").value.split("\n");
+	let higth = matrix.length; 
+	let width = matrix[0].split(" ").length; 
+	let valid = 0;
+	for (let i = 0; i < matrix.length; i++) {
+		let line = matrix[i].split(" ");
 
-}
-function valid() {
-    var n = document.getElementById("n").value;
-    var arr1 = document.getElementsByClassName("value");
-    var s = 0;
-    var arr = [];  
-    for (var i = 0; i < n; i++){
-        arr[i] = [];
-        for (var j = 0; j < n; j++){
-        	arr[i][j] = arr1[s].value;  
-		s++; 
-		}	
+		for (let j = 0; j < line.length; j++) {
+			if(!(line[j] == 0 || line[j] == 1)) {
+				valid = 1;
+			}
+		}
+
+		if(line.length != width) {
+			valid = 2;
+		}
+		else if (line.length != higth){
+			valid = 2;
+		}
 	}
-    for (var i = 0; i < n; i++){   
-        for (var j = 0; j < n; j++){
-            if(arr[i][j] > 1 || arr[i][j] < 0 ){  
-                return alert("Ошибка!Значения могут быть только 0 и 1!");
-            }
-	    }	 
-    }
-    return true;  
+	if (valid == 1) {
+		alert("В матрице не может быть элементов, отличных от нуля или единицы!")
+	}
+	else if (valid == 2){
+		alert("Матрица не квадратная!")
+	}
 }
 
 function reflex() {
-	var n = document.getElementById("n").value;
-	var arr1 = document.getElementsByClassName("value");
-	var count = 0;
+	let matrix = document.getElementById("input").value.split("\n");
 	var flag = true;
-	for (var i = 0; i < n; i++){
-		for (var j = 0; j < n; j++){
+	for (var i = 0; i < matrix.length; i++){
+		let line = matrix[i].split(" ");
+		for (var j = 0; j < line.length; j++){
 			if(i == j) {
-				if(arr1[count].value != 1) {
+				if(line[j] != 1) {
 					flag = false;
 				}				
 			}
-			count++;
 		}	
 	}	
 	if(flag) {
@@ -61,44 +49,46 @@ function reflex() {
 }
 
 function symm() {
-    var n = document.getElementById("n").value;
-	var arr1 = document.getElementsByClassName("value"); 
-	var s = 0;
-	var result = 'Отношение является СИММЕТРИЧНЫМ';
+	let matrix = document.getElementById("input").value.split("\n");
+	var flag = true;
 	var arr = [];
-	for (var i = 0; i < n; i++){
-	    arr[i] = [];
-	    for (var j = 0; j < n; j++){
-			arr[i][j] = arr1[s].value; 
-			s++;
+	for (var i = 0; i < matrix.length; i++){
+		let line = matrix[i].split(" ");
+		arr[i] = [];
+	    for (var j = 0; j < matrix.length; j++){
+			arr[i][j] = line[j]; 
 	    }	
 	}
-	for (var i = 0; i < n; i++){
-	    for (var j = 0; j < n; j++){
+	for (var i = 0; i < matrix.length; i++){
+	    for (var j = 0; j < matrix.length; j++){
 	        if(arr[i][j] != arr[j][i]) { 
-				result = 'Отношение не является СИММЕТРИЧНЫМИ';
+				flag = false;
 		    }
 	    }	
 	}
-	document.getElementById('symm').innerHTML = result;	
+	if(flag){
+		document.getElementById('symm').innerHTML = 'Отношение является СИММЕТРИЧНЫМИ';	
+	}
+	else{
+		document.getElementById('symm').innerHTML = 'Отношение НЕ является СИММЕТРИЧНЫМИ';	
+	}
+	
 }  
 
 function cososymm() {
-	var n = document.getElementById("n").value;
-	var arr = document.getElementsByClassName("value");
-	var count = 0;
+	let matrix = document.getElementById("input").value.split("\n");
 	var flag = true;
-	var arr2 = [];
-	for (var i = 0; i < n; i++){
-		arr2[i] = [];
-		for (var j = 0; j < n; j++){
-			arr2[i][j] = arr[count].value;
-			count++;
+	var arr = [];
+	for (var i = 0; i < matrix.length; i++){
+		arr[i] = [];
+		let line = matrix[i].split(" ");
+		for (var j = 0; j < matrix.length; j++){
+			arr[i][j] = line[j];
 		}	
 	}	
-	for (var i = 0; i < n; i++){				
-		for (var j = 0; j < n; j++){
-				if(arr2[i][j] != -(arr2[j][i])) {
+	for (var i = 0; i < matrix.length; i++){				
+		for (var j = 0; j < matrix.length; j++){
+				if(arr[i][j] != -(arr[j][i])) {
 					flag = false;
 				}			
 		}	
@@ -112,25 +102,23 @@ function cososymm() {
 }
 
 function trans() {
-	var n = document.getElementById("n").value;
-	var arr1 = document.getElementsByClassName("value");
-	var count = 0;
+	let matrix = document.getElementById("input").value.split("\n");
 	var flag = true;
 	var arr2 = [];
 	var arr = [];						
-	for (var i = 0; i < n; i++){
+	for (var i = 0; i < matrix.length; i++){
 		arr2[i] = [];
 		arr[i] = [];
-		for (var j = 0; j < n; j++){
-			arr2[i][j] = arr1[count].value;
+		let line = matrix[i].split(" ");
+		for (var j = 0; j < matrix.length; j++){
+			arr2[i][j] = line[j];
 			arr[i][j] = 0;
-			count++;
 		}	
 	}
 	
-	for (var i = 0; i < n; i++) {		
-		for (var j = 0; j < n; j++) {
-			for (var z = 0; z < n; z++) {
+	for (var i = 0; i < matrix.length; i++) {		
+		for (var j = 0; j < matrix.length; j++) {
+			for (var z = 0; z < matrix.length; z++) {
 				arr[i][j] += arr2[i][z] * arr2[z][j];
 			}
 			if (arr[i][j] > 1) {
@@ -139,8 +127,8 @@ function trans() {
 		}		
 	}	
 	
-	for (var i = 0; i < n; i++){		
-		for (var j = 0; j < n; j++){
+	for (var i = 0; i < matrix.length; i++){		
+		for (var j = 0; j < matrix.length; j++){
 			if (arr2[i][j] < arr[i][j]) {
 				flag = false;
 			}				
@@ -156,7 +144,7 @@ function trans() {
 }
 
 function result() {
-	valid();
+	matrix();
     reflex();
     symm();
 	cososymm();

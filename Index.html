@@ -5,16 +5,22 @@
 		<meta charset="utf-8">             
         <p class = "main">
 			<h1 align = "center">Лабораторная работа по Дискретной математике №2<br>"Матрица n x n"<br><h2 align = "center">ИВТАСбд-11<br>Агафонов Владислав</h2></h1>
-        </p> 
+        </p>
+		<title>Лабораторная работа №2</title>
 	</head>
   
     <body>           
-        Введите n(размер матрицы):<br>
-		<input type="number" id="n" placeholder="Введите n"> 
-		<input type="button" value="Создать" onClick="CreateMatrix();">
-		<div id="matrix"></div>
+		<form>
+		Введите матрицу:<br>
+		Пример ввода:<br>
+		1 1 0<br>
+		1 1 0<br>
+		0 1 1<br>
+		<textarea name="comment" cols="30" rows="7" placeholder="Введите матрицу" id="input"></textarea><br>
 		<br>
-		<input type="button" value="Свойства данной матрицы" onClick="result();"> 
+		<input type='button' value='Рассчитать' onclick="result();"><br>
+		</form>		
+		<br>Свойства отношения:<br>
 		<div id="reflex"></div>
 		<div id="symm"></div>
 		<div id="cososymm"></div>
